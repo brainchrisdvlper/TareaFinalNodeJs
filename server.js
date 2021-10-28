@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const morgan = require("morgan");
 const cors = require("cors");
 const { readdirSync } = require("fs");
+const cookieParser = require("cookie-parser");
 
 //swager
 const swaggerJsDoc = require("swagger-jsdoc");
@@ -29,6 +30,7 @@ mongoose
 // comment this line for production or uninstall
 app.use(morgan("dev"));
 app.use(express.json({ limit: "2mb" }));
+app.use(cookieParser());
 app.use(cors());
 
 // routes middlewares
