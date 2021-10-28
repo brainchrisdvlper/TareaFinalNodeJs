@@ -1,18 +1,62 @@
 const express = require("express");
-const compression = require("compression");
-const path = require("path");
+const mongoose = require("mongoose");
+const morgan = require("morgan");
+const cors = require("cors");
+const { readdirSync } = require("fs");
+
+//swager
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
+
+//VARIABLES ENV
+require("dotenv").config();
+
+// app
 const app = express();
 
-app.use(compression());
+// db
+mongoose
+  .connect(process.env.DATABASE, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+  })
+  .then(() => console.log("Connection DB OK"))
+  .catch((err) => console.log("Connection DB with Error:", err));
 
-app.use(express.static(path.join(__dirname, "/public")));
+// middlewares
+// comment this line for production or uninstall
+app.use(morgan("dev"));
+app.use(express.json({ limit: "2mb" }));
+app.use(cors());
 
-//app.get("*", function (req, res) {
-//  res.sendFile(path.join(__dirname, "public", "index.html"));
-//});
+// routes middlewares
+readdirSync("./routes").map((r) => app.use("/api", require("./routes/" + r)));
 
-const PORT = process.env.PORT || 3000;
+// Extended: https://swagger.io/specification/#infoObject
+const swaggerOptions = {
+  swaggerDefinition: {
+    openapi: "3.0.0",
+    info: {
+      version: "1.0.0",
+      title: "API Entrega Final C.Sanchez",
+      description: "API Information",
+      contact: {
+        name: "csanchezb_dev",
+      },
+      servers: ["http://localhost:8000"],
+    },
+  },
+  // definition the apis with swagger
+  apis: ["./routes/*.js"],
+};
 
-app.listen(PORT, () => {
-  console.log(`App is running on port ${PORT}`);
-});
+// final definitions with swagger-express
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+// port
+const port = process.env.PORT || 8000;
+
+app.listen(port, () => console.log(`Server is running on port ${port}`));
