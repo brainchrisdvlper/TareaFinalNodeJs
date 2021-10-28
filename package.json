@@ -6,7 +6,7 @@
     "build": "cd client && yarn build",
     "install": "cd client && yarn install",
     "start": "node server.js",
-    "server": "nodemon server",
+    "server": "nodemon server"
  },
   "keywords": [],
   "author": "Carlos Sanchez",
