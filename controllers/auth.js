@@ -1,6 +1,7 @@
 const User = require("../models/userApp");
 const jwt = require("jsonwebtoken");
 const expressJwt = require("express-jwt");
+const cookieParser = require("cookie-parser");
 
 const { errorHandler } = require("../help/dbErrorHandler");
 
