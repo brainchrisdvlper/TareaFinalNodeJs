@@ -21,7 +21,7 @@ const { create, list } = require("../controllers/userApp");
 
 // endpoints
 
-router.post("/userApp", adminCheck, create);
+router.post("/userApp", create);
 router.get("/userApp", list);
 
 module.exports = router;
