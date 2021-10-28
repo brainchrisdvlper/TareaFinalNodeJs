@@ -1,5 +1,4 @@
 const userApp = require("../models/userApp");
-//const slugify = require("slugify");
 
 exports.create = async (req, res) => {
   try {

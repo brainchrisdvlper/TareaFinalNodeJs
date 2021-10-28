@@ -1,25 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
-const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const { readdirSync } = require("fs");
 
 //swager
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
-
-//sentry
-const Sentry = require("@sentry/node");
-//const Tracing = require("@sentry/tracing");
-
-Sentry.init({
-  dsn: process.env.DNS_SENTRY,
-
-  // We recommend adjusting this value in production, or using tracesSampler
-  // for finer control
-  tracesSampleRate: 1.0,
-});
 
 //VARIABLES ENV
 require("dotenv").config();

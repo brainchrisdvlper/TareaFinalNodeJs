@@ -1,5 +1,4 @@
 const Companies = require("../models/companies");
-const slugify = require("slugify");
 
 // create
 

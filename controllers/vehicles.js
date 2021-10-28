@@ -1,5 +1,4 @@
 const Vehicles = require("../models/vehicles");
-const slugify = require("slugify");
 
 exports.create = async (req, res) => {
   try {
