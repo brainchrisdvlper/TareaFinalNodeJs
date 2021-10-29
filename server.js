@@ -27,7 +27,7 @@ mongoose
   .catch((err) => console.log("Connection DB with Error:", err));
 
 // middlewares
-// comment this line for production or uninstall
+
 app.use(morgan("dev"));
 app.use(express.json({ limit: "2mb" }));
 app.use(cookieParser());
